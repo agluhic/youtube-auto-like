@@ -30,7 +30,7 @@
 		}
 	],
 	"background": {
-		"scripts": ["scripts/background.js"]
+		"scripts": ["scripts/constants.js", "scripts/background.js"]
 	},
 	"options_ui": {
 		"page": "options.html"

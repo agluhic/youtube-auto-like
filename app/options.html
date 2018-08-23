@@ -9,6 +9,68 @@
 
 <body>
 	<h1 id="title"><strong>YouTube</strong> __MSG_appNamePart2__</h1>
+	<input type="checkbox" id="checkbox_activated" name="activated"/>
+	<label for="checkbox_activated" class="activation-checkbox"><div class="check-box"></div><span></span></label>
+
+	<hr>
+
+	<input type="checkbox" id="navToggle" class="list-arrow toggle-on-button"/><label class="list-title" for="navToggle">__MSG_optLikeSub__</label>
+	<div class="navbar toggle-content">
+		<form id="options-form-subscribed" enctype="multipart/form-data">
+			<div class="form-group">
+				<input id="subscribed-instant-like" type="radio" name="subscribed_liker_type" value="subscribed_instant"><label for="subscribed-instant-like">__MSG_optLikeInstant__</label><br>
+				<input id="subscribed-custom-like" type="radio" name="subscribed_liker_type" value="subscribed_custom_timer" class="toggle-on-button"><label for="subscribed-custom-like">__MSG_optLikeCustom__</label><br>
+				<div id="subscribed-options-timer" class="toggle-content">
+					<span>
+						<input id="subscribed-percentage-like" type="radio" name="subscribed_type_timer" value="subscribed_percentage" class="toggle-on-button"><label for="subscribed-percentage-like">__MSG_optLikePercentage__</label>
+						<input id="subscribed-percentage-value" type="number" name="subscribed_percentage_value" min="0" max="99" size="1" maxlength="2" class="toggle-content">
+					</span><br>
+					<span>
+						<input id="subscribed-minute-like" type="radio" name="subscribed_type_timer" value="subscribed_minute" class="toggle-on-button"><label for="subscribed-minute-like">__MSG_optLikeMinutes__</label>
+						<input id="subscribed-minute-value" type="number" name="subscribed_timer_value" min="0" step="0.017" lang="en" class="toggle-content">
+					</span><br>
+				</div>
+				<input id="subscribed-none" type="radio" name="like_what" value="none"><label for="none_like">__MSG_optLikeNone__</label><br>
+			</div>
+		</form>
+	</div>
+
+	<hr>
+
+	<input type="checkbox" id="navToggle2" class="list-arrow toggle-on-button"/><label class="list-title" for="navToggle2">__MSG_optLikeAll__</label>
+	<div class="navbar toggle-content">
+		<form id="options-form-all" enctype="multipart/form-data">
+			<div class="form-group">
+				<input id="all-instant-like" type="radio" name="all_liker_type" value="all_instant"><label for="all_instant_like">__MSG_optLikeInstant__</label><br>
+				<input id="all-custom-like" type="radio" name="all_liker_type" value="all_custom_timer" class="toggle-on-button"><label for="all-custom-like">__MSG_optLikeCustom__</label><br>
+				<div id="all-options-timer" class="toggle-content">
+					<span>
+						<input id="all-percentage-like" type="radio" name="all_type_timer" value="all_percentage" class="toggle-on-button"><label for="all-percentage-like">__MSG_optLikePercentage__</label>
+						<input id="all-percentage-value" type="number" name="all_timer_value" min="0" max="99" size="1" maxlength="2" class="toggle-content">
+					</span><br>
+					<span>
+					<input id="all-minute-like" type="radio" name="all_type_timer" value="all_minute" class="toggle-on-button"><label for="all-minute-like">__MSG_optLikeMinutes__</label>
+						<input id="all-minute-value" type="number" name="timer_value" min="0" step="0.017" lang="en" class="toggle-content">
+					</span><br>
+				</div>
+				<input id="all-none" type="radio" name="like_what" value="none"><label for="none_like">__MSG_optLikeNone__</label><br>
+			</div>
+		</form>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<hr>
+
+
 	<div id="options-wrap">
 	<form id="options-form-target" enctype="multipart/form-data">
 		<div class="form-group">
@@ -28,7 +90,7 @@
 					<input id="percentage-value" type="number" name="timer_value" min="0" max="99" size="1" maxlength="2" class="toggle-content">
 				</span><br>
 				<span>
-					<input id="minute-like" type="radio" name="type_timer" value="minute" class="toggle-on-button"><label for="minute-like">__MSG_optLikeMinutes__</label>
+				<input id="minute-like" type="radio" name="type_timer" value="minute" class="toggle-on-button"><label for="minute-like">__MSG_optLikeMinutes__</label>
 					<input id="minute-value" type="number" name="timer_value" min="0" step="0.017" lang="en" class="toggle-content">
 				</span><br>
 			</div>

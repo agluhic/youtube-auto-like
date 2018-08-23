@@ -15,6 +15,12 @@
 		"message": "Ce plugin like automatiquement les vidéos YouTube, comme cela vous n'oubliez plus de supporter vos créateurs préférés. Vous pouvez choisir d'aimer toutes les vidéos, seulement des chaines souscrites ou aucune. Si vous dislikez une vidéo, celle-ci ne sera pas reliker par la suite. Aucune connexion nécessaire. Vous pouvez proposer de nouvelles fonctionnalités ou contribuer au plugin.",
 		"description": "Description detaillée pour la page web du plugin"
 	},
+	"activated": {
+		"message" : "Activé"
+	},
+	"desactivated": {
+		"message" : "Désactivé"
+	},
 	"optLikeSub": {
 		"message": "Like les vidéos des chaines abonnées"
 	},

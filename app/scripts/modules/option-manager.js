@@ -22,6 +22,12 @@ class OptionManager {
 		})
 	}
 
+	getItem(item) {
+		return new Promise((resolve, reject) => {
+			browser.storage.local.get(item).then( (item) => resolve(item) )
+		})
+	}
+
 	/*
 	 * Set options
 	 * @param {Object} options Key-value pairs of options to set
@@ -29,7 +35,13 @@ class OptionManager {
 	 */
 	set(options) {
 		return new Promise((resolve, reject) => {
+			console.log(options)
 			browser.storage.local.set( options, resolve)
+		})
+	}
+	setItem(item) {
+		return new Promise((resolve, reject) => {
+			browser.storage.local.set(item, resolve)
 		})
 	}
  }

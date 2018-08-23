@@ -1,9 +1,11 @@
+/* Global rules */
 body {
 	width: 305px;
 	margin: 0;
 	padding: 30px;
 	font-family: 'Titillium Web';
 	font-weight: 300;
+    overflow: hidden;
 }
 
 a {
@@ -23,6 +25,14 @@ svg {
 	fill: currentColor;
 }
 
+label {
+	margin-bottom: 0.2em;
+	font-size: 15px;
+	letter-spacing: 0.01em;
+	cursor: pointer;
+}
+
+
 #title {
 	font-size: 17px;
 	font-weight: 300;
@@ -32,12 +42,23 @@ svg {
 	letter-spacing: 0.1em; 
 }
 
-label {
-	margin-bottom: 0.2em;
-	font-size: 15px;
-	letter-spacing: 0.01em;
-	cursor: pointer;
+/* Rules for the activation checkbox*/
+.activation-checkbox {
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
 }
+
+.activated {
+	color: green;
+}
+
+.desactivated {
+	color: #e62117;
+}
+
+
+
 
 input[type='radio'] {
 	position: relative;
@@ -47,13 +68,13 @@ input[type='radio'] {
 }
 
 input[type='radio'], input[type='radio']:focus, input[type='radio']:hover, input[type='radio']:active {
-    width: 1.2em;
-    height: 1.2em;
-    margin-right: 1em;
-    border: 2px solid #e62117 !important;
-    background: #fff !important;
-    box-shadow: none !important;
-    outline: 0;
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: 1em;
+	border: 2px solid #e62117 !important;
+	background: #fff !important;
+	box-shadow: none !important;
+	outline: 0;
 }
 
 input[type='radio']:hover, input[type='radio']:checked {
@@ -72,7 +93,7 @@ input[type='radio']:checked::before {
 	top: 2px;
 }
 
-input[type="radio"].toggle-on-button ~ .toggle-content {
+input.toggle-on-button ~ .toggle-content {
 	max-height: 0;
 	overflow: hidden;
 }
@@ -86,6 +107,10 @@ input[type="radio"].toggle-on-button:checked ~ .toggle-content {
 	padding-left: 20px
 }
 
+/* 
+Hide the input box on the custom timer not selected. No need window recalculaton
+So this could be done with CSS
+*/
 input[type="radio"].toggle-on-button ~ input[type="number"].toggle-content {
 	visibility: hidden;
 }
@@ -99,7 +124,7 @@ input[type="number"] {
 }
 
 hr {
-	border-top: 1px solid #8c8b8b;
+	border-top: 1px solid #d9e5e8;
 }
 
 #links {
@@ -121,7 +146,7 @@ hr {
 	font-weight: bold;
 }
 
- #report-link {
+#report-link {
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	font-weight: bold;
@@ -132,4 +157,224 @@ hr {
 	height: 1.15em;
 	position: relative;
 	top: 0.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+dropdown
+*/
+
+
+input.list-arrow{
+	display: none;
+}
+.list-arrow {
+  line-height: 40px;
+  width: 100%;
+  font-size: 12px;
+  border: none;
+  background-color: white;
+  color: #111;
+  text-align: left;
+}
+.list-title{
+  display: inline-block;
+  padding-left: 5px;
+	width: 90%;
+}
+.list-title:before
+{
+	display: inline-block;
+	font-size: 22px;
+	margin-right: 20px;
+	transition: transform .15s ease-in-out;
+	content: '\203a';
+}
+input.list-arrow.toggle-on-button:checked ~ .expend.list-title:before {
+	-webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+https://codepen.io/pg-dev/pen/qVGOrr
+Forked from Jimmy Gillam with few modifications : https://codepen.io/theigmo87/pen/cwHyK
+*/
+/* Checkmark style starts */
+@-moz-keyframes dothabottomcheck {
+	0% {
+		height: 0;
+	}
+	100% {
+		height: 10px;
+	}
+}
+@-webkit-keyframes dothabottomcheck {
+	0% {
+		height: 0;
+	}
+	100% {
+		height: 10px;
+	}
+}
+@keyframes dothabottomcheck {
+	0% {
+		height: 0;
+	}
+	100% {
+		height: 10px;
+	}
+}
+@keyframes dothatopcheck {
+	0% {
+		height: 0;
+	}
+	50% {
+		height: 0;
+	}
+	100% {
+		height: 24px;
+	}
+}
+@-webkit-keyframes dothatopcheck {
+	0% {
+		height: 0;
+	}
+	50% {
+		height: 0;
+	}
+	100% {
+		height: 24px;
+	}
+}
+@-moz-keyframes dothatopcheck {
+	0% {
+		height: 0;
+	}
+	50% {
+		height: 0;
+	}
+	100% {
+		height: 24px;
+	}
+}
+input[type=checkbox] {
+	display: none;
+}
+
+.check-box {
+	height: 20px;
+	width: 20px;
+	margin-right: 1em;
+	background-color: transparent;
+	border: 2px solid #000;
+	border-radius: 5px;
+	position: relative;
+	display: inline-block;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-transition: border-color ease 0.2s;
+	-o-transition: border-color ease 0.2s;
+	-webkit-transition: border-color ease 0.2s;
+	transition: border-color ease 0.2s;
+	cursor: pointer;
+}
+.check-box::before, .check-box::after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position: absolute;
+	height: 0;
+	width: 4px;
+	background-color: #34b93d;
+	display: inline-block;
+	-moz-transform-origin: left top;
+	-ms-transform-origin: left top;
+	-o-transform-origin: left top;
+	-webkit-transform-origin: left top;
+	transform-origin: left top;
+	border-radius: 5px;
+	content: ' ';
+	-webkit-transition: opacity ease .5;
+	-moz-transition: opacity ease .5;
+	transition: opacity ease .5;
+}
+.check-box::before {
+	top: 14.4px;
+	left: 8.2px;
+	-moz-transform: rotate(-135deg);
+	-ms-transform: rotate(-135deg);
+	-o-transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	transform: rotate(-135deg);
+}
+.check-box::after {
+	top: 7.4px;
+	left: 1px;
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+input[type=checkbox]:checked ~ label > .check-box,
+.check-box.checked {
+	border-color: #34b93d;
+}
+input[type=checkbox]:checked ~ label > .check-box::after,
+.check-box.checked::after {
+	height: 10px;
+	-moz-animation: dothabottomcheck 0.2s ease 0s forwards;
+	-o-animation: dothabottomcheck 0.2s ease 0s forwards;
+	-webkit-animation: dothabottomcheck 0.2s ease 0s forwards;
+	animation: dothabottomcheck 0.2s ease 0s forwards;
+}
+input[type=checkbox]:checked ~ label > .check-box::before,
+.check-box.checked::before {
+	height: 24px;
+	-moz-animation: dothatopcheck 0.4s ease 0s forwards;
+	-o-animation: dothatopcheck 0.4s ease 0s forwards;
+	-webkit-animation: dothatopcheck 0.4s ease 0s forwards;
+	animation: dothatopcheck 0.4s ease 0s forwards;
 }
