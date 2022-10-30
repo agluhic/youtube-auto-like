@@ -6,6 +6,7 @@ const IS_GAMING = window.location.hostname.indexOf('gaming.youtube') > -1; //usi
 const IS_TV = window.location.pathname === '/tv';
 //allow to do noting on home page
 const IS_CLASSIC = (window.location.hostname === 'www.youtube.com') && !IS_TV;
+const IS_PAPER = document.querySelector("ytd-subscribe-button-renderer[modern]") !== null;
 
 // Create an OptionManager
 let optionManager = new OptionManager(OPTIONS);
@@ -39,7 +40,12 @@ optionManager.get().then((options) => {
 		log("old youtube detected");
 		console.error("youtube-auto-like do not support old youtube layout anymore");
 	} else {
-		let liker = new MaterialLiker(options);
+		let liker = null;
+		if (IS_PAPER) {
+			liker = new PaperLiker(options);
+		} else {
+			liker = new MaterialLiker(options);
+		}
 		if (IS_CLASSIC) {
 			log("material youtube detected");
 
