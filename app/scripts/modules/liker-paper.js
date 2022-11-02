@@ -275,14 +275,10 @@ class PaperLiker {
 	isVideoRated() {
 		log("checking if video is rated");
 		if (IS_CLASSIC) {
-			return this.btns.like.parentNode.parentNode.classList
-			    .contains("style-default-active") ||
-				this.btns.dislike.parentNode.parentNode.classList
-				.contains("style-default-active");
-			
-		} else if (IS_GAMING) {
-			return this.btns.like.classList.contains("active") ||
-				 this.btns.dislike.classList.contains("active");
+			let isRated = this.btns.like.attributes["aria-pressed"].nodeValue === "true" ||
+				this.btns.dislike.attributes["aria-pressed"].nodeValue === "true";
+			log("is rated: ", isRated);
+			return isRated;
 		} else {
 			throw "Unknow youtube type";
 		}
