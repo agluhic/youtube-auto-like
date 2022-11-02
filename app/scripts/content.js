@@ -131,9 +131,7 @@ optionManager.get().then((options) => {
 	let jsInitChecktimer = null;
 
 	function setEventListeners(evt) {
-		log('in')
 		function checkForJS_Finish() {
-			log("again")
 			if ( getButtons()?.offsetParent && isVideoLoaded() ) {
 				startLikerProcess(options);
 				// getBrowser().storage.onChanged.addListener(storageChangeHandler);
