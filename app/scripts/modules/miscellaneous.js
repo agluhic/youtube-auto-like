@@ -68,14 +68,14 @@ function getCreatorFromVideo() {
 	let creatorBlock = null;
 	let name = null;
 	let URL = null;
-	if (IS_PAPER) {
-		let creatorBlock = document.querySelector("ytd-video-owner-renderer[modern-metapanel]");
-		let name = creatorBlock.querySelector("ytd-channel-name#channel-name a").textContent;
-		let URL = creatorBlock.querySelector("ytd-channel-name#channel-name a").href;
+	if (window.IS_PAPER) {
+		creatorBlock = document.querySelector("ytd-video-owner-renderer[modern-metapanel]");
+		name = creatorBlock.querySelector("ytd-channel-name#channel-name a").textContent;
+		URL = creatorBlock.querySelector("ytd-channel-name#channel-name a").href;
 	} else {
-		let creatorBlock = document.querySelector("#container.ytd-video-secondary-info-renderer");
-		let name = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").textContent;
-		let URL = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").href;
+		creatorBlock = document.querySelector("#container.ytd-video-secondary-info-renderer");
+		name = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").textContent;
+		URL = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").href;
 	}
 	return {name, URL};
 }
