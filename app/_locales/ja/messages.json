@@ -1,0 +1,62 @@
+{
+	"appName": {
+		"message": "YouTube Auto Like",
+		"description": "アプリの名前"
+	},
+	"appDesc": {
+		"message":"自動的に任意のYouTube動画を高評価ボタンを押します。",
+		"description": "アプリの説明"
+	},
+	"appDescDetail": {
+		"message": "この拡張機能は、登録しているチャンネルの動画を視聴するたびに高評価を押します。また、視聴した動画全てを高評価する事もできます。お気軽に新しい機能を提案、ご貢献ください:",
+		"description": "Webストアについての概要"
+	},
+	"optLikeSub": {
+		"message": "登録したチャンネルのみ高評価する"
+	},
+	"optLikeAll": {
+		"message": "全ての動画に高評価する"
+	},
+	"optLikeNone": {
+		"message": "無効"
+	},
+	"optLikeInstant": {
+		"message": "超スピードで高評価"
+	},
+	"optLikeCustom": {
+		"message": "タイミングを指定"
+	},
+	"optLikePercentage": {
+		"message": "割合"
+	},
+	"optLikeMinutes": {
+		"message": "分"
+	},
+	"optLikeRandom": {
+		"message": "ランダムなタイミング"
+	},
+	"optUseList": {
+		"message": "リストの使用"
+	},
+	"optBlackList": {
+		"message": "ブラックリスト"
+	},
+	"optWhiteList": {
+		"message": "ホワイトリスト"
+	},
+	"optWhiteListWarning": {
+		"message": "⚠️ リストが空の場合、高評価はされません"
+	},
+	"linkDonate": {
+		"message": "寄付!"
+	},
+	"linkContribute": {
+		"message": "貢献!"
+	},
+	"mngName": {
+		"message": "チャンネルの名前"
+	},
+	"mngURL": {
+		"message": "チャンネルのURL"
+	}
+}
