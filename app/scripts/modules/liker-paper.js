@@ -125,6 +125,11 @@ class PaperLiker {
 		return this.getUsedLikeFilledSVG() === null;
 	}
 
+	isLive() {
+		var liveBadge = document.querySelector('.ytp-live-badge');
+		return liveBadge && !liveBadge.getAttribute('disabled');
+	}
+
 	/**
 	 * Detects when like/dislike buttons have loaded (so we can press them)
 	 * and register element in the attributes
@@ -161,6 +166,11 @@ class PaperLiker {
 	waitForVideo(callback) {
 		if (this.video()) {
 			log("Get Video.")
+			if (this.isLive()) {
+				log("Video is live");
+				this.liveStartedAt = this.video().currentTime;
+				log("Start watching live at", this.liveStartedAt);
+			}
 			callback();
 		} else {
 			setTimeout(() => this.waitForVideo(callback), 1000);
@@ -207,7 +217,7 @@ class PaperLiker {
 		else {
 			let duration = this.video().duration;
 
-			if (this.options.percentage_timer) {
+			if (this.options.percentage_timer && !this.isLive()) {
 				log("waitTimer: percent")
 				let percentageAtLike = this.options.percentage_value;
 				let nowInPercent = this.video().currentTime / duration * 100;
@@ -219,18 +229,19 @@ class PaperLiker {
 				}
 			}
 
+			let currentT = this.isLive() ? (this.video().currentTime - this.liveStartedAt) : this.video().currentTime;
 			if (this.options.minute_timer) {
 				log("waitTimer: minute")
 				let timeAtLike = this.options.minute_value;
 				// change timeAtLike if vid shorter than time set by user
-				log(this.video().currentTime, this.video().duration, timeAtLike)
+				log(currentT, duration, timeAtLike)
 				if (this.video().duration < timeAtLike) {
-					timeAtLike = this.video().duration;
+					timeAtLike = duration;
 				} else {
 					// convert in second
 					timeAtLike *= 60;
 				}
-				if (this.video().currentTime >= timeAtLike) {
+				if (currentT >= timeAtLike) {
 					callback();
 					return;
 				}
