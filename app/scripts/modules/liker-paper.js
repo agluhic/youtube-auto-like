@@ -232,14 +232,11 @@ class PaperLiker {
 			let currentT = this.isLive() ? (this.video().currentTime - this.liveStartedAt) : this.video().currentTime;
 			if (this.options.minute_timer) {
 				log("waitTimer: minute")
-				let timeAtLike = this.options.minute_value;
+				let timeAtLike = this.options.minute_value * 60;
 				// change timeAtLike if vid shorter than time set by user
 				log(currentT, duration, timeAtLike)
-				if (this.video().duration < timeAtLike) {
+				if (duration < timeAtLike) {
 					timeAtLike = duration;
-				} else {
-					// convert in second
-					timeAtLike *= 60;
 				}
 				if (currentT >= timeAtLike) {
 					callback();
