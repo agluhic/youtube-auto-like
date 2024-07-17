@@ -1,8 +1,8 @@
 /*
  * Likes YouTube videos.
- * For the newer material design layout
+ * For the newer paper design layout
  */
-class MaterialLiker {
+class MetaLiker {
 	/*
 	 * @constructor
 	 * @param {OptionManager} options Object that must have the option 
@@ -11,15 +11,6 @@ class MaterialLiker {
 	 */
 	constructor(options) {
 		this.options = options;
-		/*
-		Youtube gaming hasn't the svg path in code like youtube
-		*/
-		this.iconSvgData = {
-			like: 'M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z',
-			dislike: 'M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v1.91l.01.01L1 14c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z'
-		};
-		this.icon = {}
-		this.btns = {}
 	}
 
 	async update_options() {
@@ -28,120 +19,76 @@ class MaterialLiker {
 		return;
 	}
 
+	VIDEO_SELECTOR = null;
+	ACTION_ELEMENTS_SELECTOR = null;
+	LIKE_SELECTOR = null;
+	DISLIKE_SELECTOR = null;
+	LIVE_SELECTOR = null;
+
 	/**
-	 * Reset the attributes
+	 * Search video across all dom each time, to prevent modification (see #59)
+	 * A mutation observer could be done, but may be overkill
+	 * @Return: the video element
 	 */
-	reset() {
-		this.icon = {}
-		this.btns = {}
+	video() {
+		if (this.VIDEO_SELECTOR === null) {
+			NotImplementedError();
+		}
+		return document.querySelector(this.VIDEO_SELECTOR);
 	}
 
 	getActionsElements() {
-		if (document.getElementById("menu-container")?.offsetParent === undefined) {
-			log("No visible ActionsElements found.")
-			return
+		if (this.ACTION_ELEMENTS_SELECTOR === null) {
+			NotImplementedError();
 		}
-
-		let elem = null;
-		if (document.getElementById("menu-container")?.offsetParent === null) {
-			elem = document.querySelector("ytd-menu-renderer.ytd-watch-metadata > div");
-		} else {
-		 	elem = document.getElementById("menu-container").querySelector("#top-level-buttons-computed");
-		}
-
-		// if null or undefined
-		if (elem == null) {
-			log("No visible ActionsElements found.")
-			return
-		} else {
-			log("ActionsElements found.")
-			return elem
-		}
-
+		return document.querySelector(this.ACTION_ELEMENTS_SELECTOR);
 	}
 
 	/**
-	 * Search the svg that has .style-scope.yt-icon (which is the svg used in yt-app)
-	 * @param {string} id The id of the svg to query
+     * @param {block} actionsElements The actionElements block containing like and dislike buttons
+     * @return {array} [likeElement, dislikeElement] The two clickable buttons
 	 */
-	getUsedSVG(id) {
-		var likeSvgRawList = document.querySelectorAll(`g#${id} path`);
-
-		let svgs = null;
-		let p = null;
-		for (let item of likeSvgRawList) {
-			p = item.getAttribute("d");
-			svgs = document.querySelectorAll(`path[d="${p}"]`);
-			for (let i of svgs) {
-				if (i.matches(".style-scope.yt-icon")) return p;
-			}
-		}
-		log("No active svg found.");
-		return null;
-	}
-
-	getUsedLikeSVG() {
-		return this.getUsedSVG("like");
-	}
-
-	getUsedDislikeSVG() {
-		return this.getUsedSVG("dislike");
-	}
-
-	getUsedLikeFilledSVG() {
-		return this.getUsedSVG("like-filled");
-	}
-
-	getUsedDislikeFilledSVG() {
-		return this.getUsedSVG("dislike-filled");
-	}
-
-	getLikeDislikeElements(likePath, dislikePath) {
+	getLikeDislikeElements(actionsElements) {
 		let likeElement, dislikeElement;
-		let actionsElements = this.getActionsElements();
+
+		if (this.LIKE_SELECTOR === null || this.DISLIKE_SELECTOR === null) {
+			NotImplementedError
+		}
 		
-		likeElement = actionsElements.querySelector(`g.yt-icon path[d="${likePath}"], g.iron-icon path[d="${likePath}"]`);
-		dislikeElement = actionsElements.querySelector(`g.yt-icon path[d="${dislikePath}"], g.iron-icon path[d="${dislikePath}"]`);
+		likeElement = actionsElements.querySelector(this.LIKE_SELECTOR);
+		dislikeElement = actionsElements.querySelector(this.DISLIKE_SELECTOR);
 
 		return [likeElement, dislikeElement];
 	}
 
+	isLive() {
+		if (this.LIVE_SELECTOR === null) {
+			NotImplementedError();
+		}
+		return document.querySelector(this.LIVE_SELECTOR);
+	}
+
+	isVideoRated(like, dislike) {
+		NotImplementedError();
+	}
+
+	/*
+	 * Another tough one
+	 * @return {Boolean} True if the user is subscribed to
+	 *                   the current video's channel
+	 */
+	isUserSubscribed() {
+		NotImplementedError();
+	}
+
 	getButtons() {
-		let _;
-		let [likeElement, dislikeElement] = this.getLikeDislikeElements(this.getUsedLikeSVG(), this.getUsedDislikeSVG());
-
-		// if a button is not found, maybe it is due to svg-filled (and the video is liked)
-		if (likeElement === null) {
-			[likeElement, _] = this.getLikeDislikeElements(this.getUsedLikeFilledSVG(), this.getUsedDislikeSVG());
+		let box = this.getActionsElements();
+		let [likeElement, dislikeElement] = this.getLikeDislikeElements(box);
+		if (likeElement === null || dislikeElement === null) {
+			log("Cannot find buttons");
 		}
-		if (dislikeElement === null) {
-			[_, dislikeElement] = this.getLikeDislikeElements(this.getUsedLikeSVG(), this.getUsedDislikeFilledSVG())
-		}
-		
-		// Make sure both icons exist
-		if (likeElement && dislikeElement) {
-			// Find and store closest buttons
-			log("got buttons");
-			let btnLike = likeElement
-				.closest('yt-icon-button, paper-icon-button');
-			let btnDislike = dislikeElement
-				.closest('yt-icon-button, paper-icon-button');
-
-			return [btnLike, btnDislike];
-				;
-		} else {
-			log ("did not get buttons");
-			return [null, null];
-		}
-	}
-
-	updateButtons() {
-		[this.btns.like, this.btns.dislike] = this.getButtons();
-
-	}
-
-	isNewLayout() {
-		return this.getUsedLikeFilledSVG() === null;
+		log("got buttons");
+		return [likeElement, dislikeElement];
 	}
 
 	/**
@@ -158,18 +105,8 @@ class MaterialLiker {
 			log("wait 1s for box");
 			setTimeout(() => this.waitForButtons(callback), 1000 );
 		} else {
-			this.updateButtons();
 			callback();
 		}
-
-	}
-
-	/**
-	 * Search video across all dom each time, to prevent modification (see #59)
-	 * A mutation observer could be done, but may be overkill
-	 */
-	video() {
-		return document.querySelectorAll(".video-stream")[0];
 	}
 
 	/**
@@ -180,6 +117,11 @@ class MaterialLiker {
 	waitForVideo(callback) {
 		if (this.video()) {
 			log("Get Video.")
+			if (this.isLive()) {
+				log("Video is live");
+				this.liveStartedAt = this.video().currentTime;
+				log("Start watching live at", this.liveStartedAt);
+			}
 			callback();
 		} else {
 			setTimeout(() => this.waitForVideo(callback), 1000);
@@ -226,7 +168,7 @@ class MaterialLiker {
 		else {
 			let duration = this.video().duration;
 
-			if (this.options.percentage_timer) {
+			if (this.options.percentage_timer && !this.isLive()) {
 				log("waitTimer: percent")
 				let percentageAtLike = this.options.percentage_value;
 				let nowInPercent = this.video().currentTime / duration * 100;
@@ -238,18 +180,16 @@ class MaterialLiker {
 				}
 			}
 
+			let currentT = this.isLive() ? (this.video().currentTime - this.liveStartedAt) : this.video().currentTime;
 			if (this.options.minute_timer) {
 				log("waitTimer: minute")
-				let timeAtLike = this.options.minute_value;
+				let timeAtLike = this.options.minute_value * 60;
 				// change timeAtLike if vid shorter than time set by user
-				log(this.video().currentTime, this.video().duration, timeAtLike)
-				if (this.video().duration < timeAtLike) {
-					timeAtLike = this.video().duration;
-				} else {
-					// convert in second
-					timeAtLike *= 60;
+				log(currentT, duration, timeAtLike)
+				if (duration < timeAtLike) {
+					timeAtLike = duration;
 				}
-				if (this.video().currentTime >= timeAtLike) {
+				if (currentT >= timeAtLike) {
 					callback();
 					return;
 				}
@@ -299,50 +239,23 @@ class MaterialLiker {
 	 * Take a wild guess
 	 * @return {Boolean} True if the like or dislike button is active
 	 */
-	isVideoRated() {
+	isVideoRatedMeta() {
 		log("checking if video is rated");
-		if (IS_CLASSIC) {
-			return this.btns.like.parentNode.parentNode.classList
-			    .contains("style-default-active") ||
-				this.btns.dislike.parentNode.parentNode.classList
-				.contains("style-default-active");
-			
-		} else if (IS_GAMING) {
-			return this.btns.like.classList.contains("active") ||
-				 this.btns.dislike.classList.contains("active");
-		} else {
-			throw "Unknow youtube type";
-		}
+		let [like, dislike] = this.getButtons();
+		log([like, dislike]);
+		let isRated = this.isVideoRated(like, dislike);
+		log("is rated: ", isRated);
+		return isRated;
 	}
 
-	/*
-	 * Another tough one
-	 * @return {Boolean} True if the user is subscribed to
-	 *                   the current video's channel
-	 */
-	isUserSubscribed() {
-		let subscribeButton = document.querySelector(
-			'ytd-subscribe-button-renderer > paper-button, ytg-subscribe-button > paper-button, ytd-subscribe-button-renderer > .ytd-subscribe-button-renderer'
-		);
-		// if new youtube 06/2022
-		if (subscribeButton.hasAttribute("hidden")) {
-			subscribeButton = document.querySelector(
-				'ytd-subscribe-button-renderer > tp-yt-paper-button.ytd-subscribe-button-renderer'
-			)
-		}
-		return subscribeButton && (subscribeButton.hasAttribute('subscribed') ||
-			subscribeButton.getAttribute("aria-pressed") === "true");
-	}	
-
 	shouldLike() {
-		this.updateButtons();
-		let rated = this.isVideoRated();
+		let rated = this.isVideoRatedMeta();
 		if (rated) {
 			log("Not like: already liked video");
 			return false;
 		}
 
-		let mode_should_like = "";
+		let mode_should_like = false;
 		if (this.options.like_what === "subscribed") {
 			log("Sub mode");
 			mode_should_like = this.isUserSubscribed();	
@@ -392,15 +305,8 @@ class MaterialLiker {
 	 * Clickity click the button
 	 */
 	attemptLike() {
-		this.btns.like.click();
+		this.getButtons()[0].click();
 	}
-
-	/*
-	 * Clickity click the skip button
-	 */
-/*	attemptSkip() {
-		this.btns.skip.click();
-	}*/
 
 	/**
 	 * Prevent multiple run if the listen event is triggered multiples times
@@ -451,7 +357,6 @@ class MaterialLiker {
 		if (this.blockMultipleRun()) {
 			return;
 		}
-		this.reset()
 		log('yt-autolike start')
 		// this.skipAd(() => {
 		// 	if(this.isAdPlaying) {
