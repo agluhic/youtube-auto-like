@@ -106,7 +106,7 @@ function isHidden(node) {
 	}
 }
 
-function isNotHidden(node){
+function isNotHidden(node) {
 	return !isHidden(node);
 }
 
@@ -132,4 +132,4 @@ function NotImplementedError(message) {
   }
 
   this.message = str;
-};
+}
