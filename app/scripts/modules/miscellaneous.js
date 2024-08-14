@@ -65,9 +65,18 @@ function areCreatorsEquals(x, y) {
 }
 
 function getCreatorFromVideo() {
-	let creatorBlock = document.querySelector("#container.ytd-video-secondary-info-renderer");
-	let name = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").textContent;
-	let URL = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").href;
+	let creatorBlock = null;
+	let name = null;
+	let URL = null;
+	if (window.IS_PAPER) {
+		creatorBlock = document.querySelector("ytd-video-owner-renderer .ytd-channel-name #text a");
+		name = creatorBlock.textContent;
+		URL = creatorBlock.href;
+	} else {
+		creatorBlock = document.querySelector("#container.ytd-video-secondary-info-renderer");
+		name = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").textContent;
+		URL = creatorBlock.querySelector("yt-formatted-string.ytd-channel-name>a").href;
+	}
 	return {name, URL};
 }
 
@@ -84,4 +93,43 @@ async function isInList(creator) {
 	}
 	console.log("isInList return", in_list)
 	return in_list;
+}
+
+function isHidden(node) {
+	// if reach root html
+	if (node === document) return false;
+
+	if (node.hasAttribute("hidden") || node.hasAttribute("invisible")) {
+		return true;
+	} else {
+		return isHidden(node.parentNode);
+	}
+}
+
+function isNotHidden(node) {
+	return !isHidden(node);
+}
+
+/**
+ * @summary A error thrown when a method is defined but not implemented (yet).
+ * @param {any} message An additional message for the error.
+ */
+function NotImplementedError(message) {
+  /// <summary>The error thrown when the given function isn't implemented.</summary>
+  const sender = (new Error())
+    .stack
+    .split('\n')[2]
+    .replace(' at ', '');
+  this.message = `The method ${sender} isn't implemented.`;
+
+  // Append the message if given.
+  if (message) { this.message += ` Message: "${message}".`; }
+
+  let str = this.message;
+
+  while (str.indexOf('  ') > -1) {
+    str = str.replace('  ', ' ');
+  }
+
+  this.message = str;
 }

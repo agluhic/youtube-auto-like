@@ -25,9 +25,12 @@ If applicable, add screenshots to help explain your problem.
 
 **Logs**
 # Here is a video to help you send the logs https://www.youtube.com/watch?v=C4fQXRYwbrs&t=66s
-# Then attach the file to the issue.
+# Then attach the zip file to the issue.
 
 **Specification**
  - OS: [e.g. Windows 10]
- - Browser version [e.g. Firefox 75]
- - Plugin version [e.g. 1.0.1]
+ - Browser version: [e.g. Firefox 75]
+ - Plugin version: [e.g. 1.0.1]  # Can be checked on this page: https://addons.mozilla.org/fr/firefox/addon/youtube_auto_like/versions/
+ - YouTube Premium: [e.g. yes]
+ - Youtube Player: [e.g. normal, large Theater, shorts, gaming, live... ]
+ - Youtube Country: [e.g. ES]
